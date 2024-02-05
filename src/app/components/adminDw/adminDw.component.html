@@ -1,0 +1,29 @@
+<div class="container-fluid">
+  <h2 class="pt-5" style="color: #FFFFFF; text-align: center;">Bienvenido a <strong style="color: #198754">DIGIAPUESTAS</strong></h2>
+  @if(!isAddMatch && !isUpdateMatch){
+    <p class="textAdminSpan">¿Que desea realizar?</p>
+
+    <div class="row text-center ">
+      <div class="col-6">
+        <button class="btn btn-outline-success btn-lg" (click)="isAddMatch = true">
+          <i class="fa-solid fa-futbol"></i>
+          Agregar Partidos
+        </button>
+      </div>
+      <div class="col-6">
+        <button class="btn btn-outline-secondary btn-lg" (click)="isUpdateMatch = true">
+          <i class="fa-solid fa-futbol"></i>
+          Actualizar Partidos
+        </button>
+      </div>
+    </div>
+  }
+
+  @if(isAddMatch){
+    <app-addMatch (emmitComponent)="emmitComponent($event)"></app-addMatch>
+  }
+
+  @if(isUpdateMatch){
+    <app-updateMatch (emmitComponent)="emmitComponent($event)"></app-updateMatch>
+  }
+</div>

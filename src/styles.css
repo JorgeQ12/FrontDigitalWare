@@ -1,1 +1,81 @@
-/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; }
+body, .modal-content , .card{ 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+    color: #fff;
+    background-color: RGBA(var(--bs-dark-rgb),var(--bs-bg-opacity, 1))!important;
+}
+
+.modal-content .modal-header{
+    border-bottom: 2px solid #198754 !important;
+}
+.modal-content .modal-footer{
+    border-top: 2px solid #198754 !important;
+}
+
+.btn.btn-outline-success, .btn.btn-outline-secondary {
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12)
+}
+.card , .card-header{
+    border-color: #198754 !important 
+}
+.classInputForm{
+    color: white;
+}
+input.form-control.classInput{
+    color:white !important
+}
+input.classInput{
+    background-color: transparent !important;
+    border-radius: 1em;
+    border: 1px solid #198754;
+    color: #198754 !important;
+    height: 3em;
+    padding: 1em;
+    text-align: center;
+}
+
+select.classSelect{
+    background: transparent;
+    border-radius: 1em;
+    border: 1px solid #198754;
+    color: #198754;
+    height: 3.5em;
+    padding: 1em;
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999; 
+  }
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled){
+    background-color: transparent !important;
+}
+.ngb-tp-input{
+    background-color: transparent !important;
+    color: #fff !important;
+}
+.ngb-tp-meridian .btn{
+    border: 1px solid #198754 !important;
+    color: #198754;
+}
+.ngb-tp-meridian .btn:hover{
+    background-color: #198754 !important;
+    color: #fff;
+}
+
+tr.winnerClass > td{
+    color: #198754 !important;
+    font-weight: bold !important;
+}
+tr.loserClass > td{
+    color: red !important;
+}

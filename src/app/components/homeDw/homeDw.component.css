@@ -1,0 +1,24 @@
+.imgHomeGambling{
+    opacity: 15%;
+    padding: 0%;
+}
+.textHomeClass{
+    text-align: -webkit-center;
+    font-weight: 700;
+}
+.textHomeClass1{
+    text-align: -webkit-center;
+    color: #198754;
+    font-weight: 900;
+}
+.btn-outline-success.active:hover{
+    background-color: transparent !important;
+}
+.buttonClassHome{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+

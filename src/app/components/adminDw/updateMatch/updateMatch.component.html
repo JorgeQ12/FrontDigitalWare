@@ -1,0 +1,51 @@
+<div class="p-5 mt-5">
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th>Team A</th>
+        <th>Team B</th>
+        <th>Score Team A</th>
+        <th>Score Team B</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of dataListMatch; track dataListMatch.idDto; let idx = $index) {
+        @if(isEdit && editIndex === idx ){
+          <tr>
+            <td>
+              <input class="classInput form-control" type="text" [(ngModel)]="dataListMatch[idx].nameTemaADTO" disabled="true"/>
+            </td>
+            <td>
+              <input class="classInput form-control" type="text" [(ngModel)]="dataListMatch[idx].nameTemaBDTO" disabled="true" />
+            </td>
+            <td>
+              <input class="classInput form-control" type="text" [(ngModel)]="dataListMatch[idx].scoreTeamA" (keypress)="onlyAllowTwoNumbers($event)"/>
+            </td>
+            <td>
+              <input class="classInput form-control" type="text" [(ngModel)]="dataListMatch[idx].scoreTeamB" (keypress)="onlyAllowTwoNumbers($event)" />
+            </td>
+            <td>
+              <button mat-raised-button class="btn btn-outline-success w-50" type="button" data-toggle="tooltip" data-placement="top" title="Edit" (click)="saveEdit(idx)" ><i class="fa fa-add"></i></button>
+              <button class="btn btn-outline-danger w-50" type="button" data-toggle="tooltip" data-placement="top" (click)="isEdit = false" ><i class="fa-solid fa-xmark"></i></button>
+            </td>
+          </tr>
+        }@else {
+          <tr>
+            <td>{{ item.nameTemaADTO }}</td>
+            <td>{{ item.nameTemaBDTO }}</td>
+            <td>{{ item.scoreTeamA }}</td>
+            <td>{{ item.scoreTeamB }}</td>
+            <td>
+              <button mat-raised-button class="btn btn-outline-success w-100" type="button" data-toggle="tooltip" data-placement="top" title="Edit" (click)="startEdit(idx)" ><i class="fa fa-edit"></i></button>
+              <button mat-raised-button class="btn btn-outline-danger w-100" type="button" data-toggle="tooltip" data-placement="top" title="Edit" (click)="disabledMatch(idx)" >Terminar Partido</button>
+            </td>
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+  <div class="text-center">
+    <button mat-raised-button class="btn btn-outline-success w-50" type="button" data-toggle="tooltip" data-placement="top"(click)="exitComponent()" ><i class="fa-solid fa-rotate-left"></i> Regresar </button>
+  </div>
+</div>

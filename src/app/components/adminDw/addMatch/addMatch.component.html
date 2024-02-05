@@ -1,0 +1,77 @@
+@if(listTeamsA?.length > 0){
+  <div class="pt-5">
+    <form [formGroup]="addMatch" (submit)="changeData()" >
+      <div class="row text-center">
+        <div class="form-group col-6 ">
+          <label for="matchA" class="classInputForm me-3 fw-bold " >Equipo A:</label>
+          <select id="matchA" formControlName="matchA" class="classSelect" required (ngModelChange)="deletesSelectedListTeam($event)" [style.width]="'30%'">
+            @for (items of listTeamsA; track items.id) {
+              <option [value]="items.id">
+                {{items.countryName}}
+              </option>
+            }
+          </select>        
+          @if (addMatch.get('matchA')!.touched && getErrorMessage('matchA')) {
+            <div class="text-danger">{{ getErrorMessage('matchA') }}</div>
+          }
+        </div>
+      
+        <div class="form-group col-6">
+          <label for="matchB" class="classInputForm me-3 fw-bold ">Equipo B:</label>
+          <select id="matchB" formControlName="matchB" class="classSelect" required [style.width]="'30%'">
+            @for (items of listTeamsB; track items.id) {
+              <option [value]="items.id">
+                {{items.countryName}}
+              </option>
+            }
+          </select>   
+          @if (addMatch.get('matchB')!.touched && getErrorMessage('matchB')) {
+            <div class="text-danger">{{ getErrorMessage('matchB') }}</div>
+          }
+        </div>
+      
+        <div class="form-group mt-3 col-6 d-flex">
+          <div class="col-6">
+            <label for="dateTime" class="classInputForm me-3 fw-bold ">Fecha del partido:</label>
+            <input
+              class="btn btn-outline-success"
+              formControlName="dateTime" 
+              placeholder="yyyy-mm-dd"
+              ngbDatepicker
+              #d="ngbDatepicker"
+              [minDate]="minDate"
+              [maxDate]="minDate"
+            />
+            <button class="btn btn-outline-success" (click)="d.toggle()" type="button"><i class="fa-regular fa-calendar"></i> </button>
+            @if (addMatch.get('dateTime')!.touched && getErrorMessage('dateTime')) {
+              <div class="text-danger">{{ getErrorMessage('dateTime') }}</div>
+            }
+          </div>
+
+          <div class="col-6">
+            <ngb-timepicker formControlName="hourTime" [meridian]="meridian" [spinners]="false"></ngb-timepicker>
+          </div>
+        </div>
+  
+        <div class="text-center mt-3 col-6">
+          <button class="btn btn-outline-success active w-50 fw-bold" type="submit" [disabled]="addMatch.invalid" >
+            Crear
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+    <div class="text-center mt-5">
+      <button mat-raised-button class="btn btn-outline-success w-50" type="button" data-toggle="tooltip" data-placement="top"(click)="exitComponent()" ><i class="fa-solid fa-rotate-left"></i> Regresar </button>
+    </div>
+  </div>
+}
+@else {
+  <div class="overlay">
+    <div class="spinner-grow" role="status">
+      <span class="sr-only">Cargando Paises...</span>
+    </div>
+  </div>
+}
+
+

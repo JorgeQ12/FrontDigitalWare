@@ -1,0 +1,23 @@
+<form [formGroup]="loginForm" (submit)="adminDwLogin()">
+  <div class="form-group d-flex flex-column ">
+    <label for="user" class="classInputForm mb-1 fw-bold" >Usuario:</label>
+    <input type="text" id="user" formControlName="user" placeholder="Ingrese su nombre de usuario*" class="classInput" required/>
+    @if (loginForm.get('user')!.touched && getErrorMessage('user')) {
+      <div class="text-danger">{{ getErrorMessage('user') }}</div>
+    }
+  </div>
+
+  <div class="form-group mt-3 d-flex flex-column">
+    <label for="password" class="classInputForm mb-1 fw-bold">Contraseña:</label>
+    <input type="text" id="password" formControlName="password"  placeholder="Ingrese su contraseña*" class="classInput" required/>
+    @if (loginForm.get('password')!.touched && getErrorMessage('password')) {
+      <div class="text-danger">{{ getErrorMessage('password') }}</div>
+    }
+  </div>
+  <div class="text-center mt-3">
+    <button class="btn btn-outline-success active w-50 fw-bold" type="submit" [disabled]="loginForm.invalid" >
+      Iniciar Session
+      <i class="fa-solid fa-arrow-right ps-3"></i>
+    </button>
+  </div>
+</form>

@@ -1,0 +1,38 @@
+@if(!isAddUserSala){
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-6">
+        <h1 class="text-center">Demuestre sus conocimientos deportivos y gane premios</h1>
+        <div class="row align-items-center flex-column mt-5">
+          <div class="col-6">
+            <span>Ingrese el codigo de la apuesta:</span>
+            <div class="row mt-2">
+              <input class="form-control classInput" [style.width]="'70%'" [(ngModel)]="codeSession"  />
+              <button class="btn btn-outline-success" [style.width]="'30%'" type="button" [disabled]="!codeSession" (click)="addUser()">
+                Unirme 
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+          <div class="col-6 mt-3">
+            <button class="btn btn-outline-success w-100 fw-bold" (click)="openModal()" >
+              Crear Sala
+              <i class="fa-solid fa-arrow-right ps-3"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <img src="https://iproxy.online/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhero.9e349ba3.png&w=1200&q=75" width="100%"/>
+      </div>
+    </div>
+  </div>
+}
+
+@if(modalCreateSession){
+  <app-addSession ></app-addSession>
+}
+
+@if(isAddUserSala){
+  <app-sessionGambling [isAddUserSala]="isAddUserSala" [codeSession]="codeSession"></app-sessionGambling>
+}

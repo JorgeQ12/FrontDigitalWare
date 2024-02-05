@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div class="row align-items-center">
+    <img src="https://www.skrill.com/fileadmin/_processed_/f/d/csm_photo-module-sports_206d6942ad.jpg" class="imgHomeGambling" width="100%" >
+    <div class="d-flex position-absolute">
+      <div class="col-6 p-5">
+        <h1 class="textHomeClass">Disfrute de apuestas deportivas en línea con</h1>
+        <h1 class="textHomeClass1">DIGITALWARE</h1>
+      </div>
+      @if(isloginHome){
+        <div class="col-6 p-5">
+          <app-loginDw ></app-loginDw>
+        </div>
+      }
+      @else {
+        <div class="col-6 buttonClassHome">
+          <button class="btn btn-outline-success mb-5 active w-50 fw-bold" (click)="isloginHome = true" >
+            Iniciar Session
+            <i class="fa-solid fa-arrow-right ps-3"></i>
+          </button>
+          <button class="btn btn-outline-secondary w-50 fw-bold">
+            <a class="nav-link active loginNavClass " aria-current="page" href="/gambling">
+              Apuesta
+              <i class="fa-solid fa-arrow-right ps-3"></i>
+            </a>
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+  <div>
+</div>

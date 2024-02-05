@@ -1,0 +1,139 @@
+@if(gamblingShow){
+  <div class="container-fluid pt-5 mt-5">
+    <div class="row">
+      <div class="col-4">
+        <div class="card">
+          <div class="card-header text-center">
+            <h1 class="fw-bold fs-4" style="color: #198754; ">Lista de Usuarios</h1>
+          </div>
+          <div class="card-body text-center">
+            <table class="table table-dark">
+              <thead>
+                <tr>
+                  <th>Nombre Usuario</th>
+                  <th>{{macthData?.teamADTO}}</th>
+                  <th>{{macthData?.teamBDTO}}</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody >
+                @for (item of userList; track userList.idSessionDTO; let idx = $index) {
+                  @if(isEdit && editIndex === idx ){
+                    <tr>
+                      <td>
+                        <input class="classInput form-control" type="text" [(ngModel)]="userList[idx].personNameDTO" disabled="true" />
+                      </td>
+                      <td>
+                        <input class="classInput form-control" type="text" [(ngModel)]="userList[idx].scoreTeamADTO" (keypress)="onlyAllowTwoNumbers($event,2)"/>
+                      </td>
+                      <td>
+                        <input class="classInput form-control" type="text" [(ngModel)]="userList[idx].scoreTeamBDTO" (keypress)="onlyAllowTwoNumbers($event,2)" />
+                      </td>
+                      <td>
+                        <button mat-raised-button class="btn btn-outline-success w-50" type="button" data-toggle="tooltip" data-placement="top" title="Edit" (click)="saveEdit(idx)" ><i class="fa fa-add"></i></button>
+                        <button class="btn btn-outline-danger w-50" type="button" data-toggle="tooltip" data-placement="top" (click)="isEdit = false" ><i class="fa-solid fa-xmark"></i></button>
+                      </td>
+                    </tr>
+                  }@else {
+                    <tr [class.winnerClass]="item.isWinner" [class.loserClass]="!item.isWinner">
+                      <td>{{ item.personNameDTO }}</td>
+                      <td>{{ item.scoreTeamADTO }}</td>
+                      <td>{{ item.scoreTeamBDTO }}</td>
+                      <td>
+                        <button mat-raised-button class="btn btn-outline-success w-100" type="button" data-toggle="tooltip" data-placement="top" title="Edit" (click)="startEdit(idx)" [disabled]="isDateMaxEdit" ><i class="fa fa-edit"></i></button>
+                      </td>
+                    </tr>
+                  }
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-8">
+        @if(!maxDateMatch){
+          <div class="row">
+            <h1 class="fw-bold col-5 text-center">{{macthData?.teamADTO}}</h1>
+            <div class="col-1">
+            </div>
+            <h1 class="fw-bold col-6 text-center" style="color: #198754; ">{{macthData?.teamBDTO}}</h1>
+          </div>
+          <div class="row text-center">
+            <div class="col-5 text-center">
+              <input type="text" class="classInput " disabled="true" [value]="macthData?.scoreTeamADTO"/>
+            </div>
+            <div class="col-1">
+              <h1 class="fw-bold">Vs</h1>
+            </div>
+            <div class="col-6 text-center">
+              <input type="text" class="classInput " disabled="true" [value]="macthData?.scoreTeamBDTO" />
+            </div>
+          </div>
+          <div class="mt-5 text-center">
+            <span class="fw-bold fs-4">Tu codigo de acceso es: </span>
+            <p class="fw-bold fs-1" style="color: #198754; "> {{salaId}}</p>
+          </div>
+        }@else {
+          <h1 class=" text-center">El/Los Ganador de la apuesta:</h1>
+          @for (item of listWinner; track userList.idSessionDTO;) {
+            <h1 class="fw-bold text-center" style="color: #198754; ">{{item.personNameDTO}}</h1>
+          }
+        }
+      </div>
+    </div>
+  </div>
+}@else {
+  <div class="container pt-5 mt-5 ">
+    <form [formGroup]="personSala" (submit)="insertPersonaSala()" >
+      <div class="row ">
+        <div class="form-group d-flex flex-column col-6">
+          <label for="namePerson" class="classInputForm mb-1 fw-bold" >Nombre:</label>
+          <input type="text" id="namePerson" formControlName="namePerson" placeholder="Ingrese su nombre*" class="classInput" required/>
+          @if (personSala.get('namePerson')!.touched && getErrorMessage('namePerson')) {
+            <div class="text-danger">{{ getErrorMessage('namePerson') }}</div>
+          }
+        </div>
+      
+        <div class="form-group d-flex flex-column col-6">
+          <label for="personIdentification" class="classInputForm mb-1 fw-bold" >Numero de identificacion:</label>
+          <input type="text" id="personIdentification" formControlName="personIdentification" placeholder="Ingrese su numero de documento*" class="classInput" (keypress)="onlyAllowTwoNumbers($event, 10)" required/>
+          @if (personSala.get('personIdentification')!.touched && getErrorMessage('personIdentification')) {
+            <div class="text-danger">{{ getErrorMessage('personIdentification') }}</div>
+          }
+        </div>
+      </div>
+    
+      <div class="row mt-3">
+        <div class="form-group d-flex flex-column col-6">
+          <label for="scoreTeamA" class="classInputForm mb-1 fw-bold" >Puntaje Equipo A:</label>
+          <input type="text" id="scoreTeamA" formControlName="scoreTeamA" class="classInput" placeholder="Ingrese su puntaje*" (keypress)="onlyAllowTwoNumbers($event, 2)" required/>
+          @if (personSala.get('scoreTeamA')!.touched && getErrorMessage('scoreTeamA')) {
+            <div class="text-danger">{{ getErrorMessage('scoreTeamA') }}</div>
+          }
+        </div>
+      
+        <div class="form-group d-flex flex-column col-6">
+          <label for="scoreTeamB" class="classInputForm mb-1 fw-bold" >Puntaje Equipo B:</label>
+          <input type="text" id="scoreTeamB" formControlName="scoreTeamB" class="classInput" placeholder="Ingrese su puntaje*" (keypress)="onlyAllowTwoNumbers($event, 2)" required/>
+          @if (personSala.get('scoreTeamB')!.touched && getErrorMessage('scoreTeamB')) {
+            <div class="text-danger">{{ getErrorMessage('scoreTeamB') }}</div>
+          }
+        </div>
+      </div>
+  
+      <div class="row mt-3">
+        <div class="form-group d-flex flex-column col-6">
+          <label class="classInputForm mb-1 fw-bold" >Codigo de sala:</label>
+          <input type="text" class="classInput" disabled="true" [value]="salaId || codeSession" />
+        </div>
+    
+        <div class="text-center col-6">
+          <button class="btn btn-outline-success w-100 h-100 fw-bold" type="submit" [disabled]="personSala.invalid" >
+            Apostar
+            <i class="fa-solid fa-arrow-right ps-3"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+}

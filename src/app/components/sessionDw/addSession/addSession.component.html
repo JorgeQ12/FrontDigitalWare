@@ -1,0 +1,40 @@
+<div class="modal-header">
+  <h4 class="modal-title fw-bold" style="color: #198754; ">Crear Sala</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  <div class="p-5">
+    <form [formGroup]="addSala" (submit)="insertDataSala()" >
+      <div class="form-group d-flex flex-column ">
+        <label for="sessionName" class="classInputForm mb-1 fw-bold" >Nombre de sala:</label>
+        <input type="text" id="sessionName" formControlName="sessionName" placeholder="Ingrese un nombre descriptivo*" class="classInput" required/>
+        @if (addSala.get('sessionName')!.touched && getErrorMessage('sessionName')) {
+          <div class="text-danger">{{ getErrorMessage('sessionName') }}</div>
+        }
+      </div>
+    
+      <div class="form-group mt-3 d-flex flex-column">
+        <label for="idMatches" class="classInputForm mb-1 fw-bold">Partido Actual:</label>
+        <select id="idMatches" formControlName="idMatches" class="classSelect w-100" required>
+          @for (items of dataListMatch; track items.idDTO) {
+            <option [value]="items.idDTO">
+              {{items.descriptionMatch}}
+            </option>
+          }
+        </select>  
+        @if (addSala.get('idMatches')!.touched && getErrorMessage('idMatches', true)) {
+          <div class="text-danger">{{ getErrorMessage('idMatches', true) }}</div>
+        }
+      </div>
+      <div class="text-center mt-3">
+        <button class="btn btn-outline-success w-50 fw-bold" type="submit" [disabled]="addSala.invalid || isValidateDate">
+          Crear Nueva Sala
+          <i class="fa-solid fa-arrow-right ps-3"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-success" (click)="activeModal.close('Close click')">Close</button>
+</div>
